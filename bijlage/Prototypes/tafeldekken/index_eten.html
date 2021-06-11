@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>eten?</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+  </head>
+
+  <body>
+    <script>
+      document.addEventListener("click", function() {
+        var videoEl = document.querySelector("#scene1");
+        videoEl.play();
+      });
+      
+      AFRAME.registerComponent('trigger_to_play', {
+            init: function () {
+            var el = this.el;
+              
+                el.addEventListener('triggerdown', function () {
+                    var videoEl = document.querySelector("#scene1");
+                    videoEl.play();
+                });
+
+            }});
+    </script>
+
+    <a-scene>
+      <!-- assets worden geladen -->
+      <a-assets>
+        <!-- Images. -->
+
+        <!-- videos -->
+        <video id="scene1" autoplay="" loop="true" src="https://cdn.glitch.com/95ef4eca-4c5b-4714-a6da-bcde30ab8432%2FR0010369_er.MP4?v=1618318028332"></video>
+      </a-assets>
+
+      <!-- 360 video-->
+      <a-videosphere src="#scene1" rotation="0 -99 0"></a-videosphere>
+          
+      <!-- Oculus Quest controllers -->
+      <a-entity oculus-touch-controls="hand: left" trigger_to_play=""></a-entity>
+      <a-entity oculus-touch-controls="hand: right" trigger_to_play=""></a-entity>
+      
+      <!-- Oculus Go controllers -->
+      <a-entity oculus-go-controls="hand: left" trigger_to_play=""></a-entity>
+      <a-entity oculus-go-controls="hand: right" trigger_to_play=""></a-entity>
+      
+      
+      <!-- entities -->
+      <a-box></a-box>
+
+      <!-- Camera -->
+      <a-entity camera look-controls position="0 1.428 0">
+        <a-entity cursor="fuse: false; rayOrigin: mouse;"></a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>

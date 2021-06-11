@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vaatwasser?</title>
+        <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+        <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    </head>
+
+    <body>
+        <script>
+            AFRAME.registerComponent('changebackground', {
+            init: function () {
+            var el = this.el;
+                
+            let tekst = document.getElementById("gedachte_tekst");
+            let stage = 0;
+            
+                window.addEventListener('keydown', function (event) {
+                    
+                    var key = event.which || event.keyCode;
+                    
+                    //als spatie wordt gedrukt ga naar het volgende plaatje
+                    if (key === 32) {
+                        if(stage< 1){
+                            el.setAttribute('src', '#background-2');
+                            tekst.setAttribute('value', ' ');
+                            stage++;
+                        } else if (stage< 2){
+                            el.setAttribute('src', '#background-3');
+                            tekst.setAttribute('value', 'Nog een beker');
+                            stage++;
+                        } else if (stage< 3){
+                            el.setAttribute('src', '#background-4');
+                            tekst.setAttribute('value', 'Dan kan hij dicht');
+                            stage++;
+                        } else if (stage< 4){
+                            el.setAttribute('src', '#background-5');
+                            tekst.setAttribute('value', 'Mooi, dan ben ik daar ook klaar mee');
+                            stage++;
+                        } else if (stage< 5){
+                            el.setAttribute('color', '#454545');
+                            tekst.setAttribute('value', ' ');
+                            stage++;
+                        } else if (stage< 6){
+                            el.setAttribute('src', '#background-6');
+                            el.setAttribute('color', '#ffffff');
+                            tekst.setAttribute('value', 'Is de vaatwasser nogsteeds niet uitgeruimd?');
+                            tekst.setAttribute('color', '#e66b6b');
+                            stage++;
+                        }
+                    }
+                    
+                    //als r wordt gedrukt reset het plaatje
+                    if (key === 82){
+                        el.setAttribute('src', '#background-1');
+                        tekst.setAttribute('value', 'Even de vaatwasser uitruimen');
+                        tekst.setAttribute('color', '#ffffff');
+                        stage = 0;
+                    }
+                    
+                });
+                
+            }});
+            
+            
+        </script>
+        
+        <a-scene>
+            <!-- assets worden geladen -->
+            <a-assets>
+                <!-- Images. -->
+                <img id="background-1" src=img/R0010300.JPG>
+                <img id="background-2" src=img/R0010301.JPG>
+                <img id="background-3" src=img/R0010302.JPG>
+                <img id="background-4" src=img/R0010303.JPG>
+                <img id="background-5" src=img/R0010304.JPG>
+                <img id="background-6" src=img/R0010305.JPG>
+                
+            </a-assets>
+            
+            <!-- 360 foto-->
+            <a-sky id="image-360" changebackground="" radius="200" src="#background-1"></a-sky>
+            
+            <!-- tekst -->
+            <a-text id="gedachte_tekst" value="Even de vaatwasser uitruimen" position="-2.64136 -0.10056 -1.19559" rotation="-12.168477652988425 61.02286997040833 2.5851855716302743" scale="" text="width: 3.49; align: center; wrapCount: 20" color="#ffffff"></a-text>
+            <!-- Camera -->
+            <a-entity camera look-controls position="0 1.428 0">
+                <a-entity cursor="fuse: false; rayOrigin: mouse;"></a-entity>
+            </a-entity>
+            
+        </a-scene>
+    </body>
+</html>

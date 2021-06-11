@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>bakje koffie?</title>
+        <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+        <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    </head>
+
+    <body>
+        
+        <script>
+            AFRAME.registerComponent('knop', {
+            init: function () {
+            var el = this.el;
+                
+            let knop = document.getElementById("knop");
+            let text = document.getElementById("text");
+            let water = document.getElementById("water");
+            let koffie = document.getElementById("koffie");
+                
+            let stage = 0;
+                
+            function error(){
+                text.setAttribute('value', 'ERROR!!!');
+                setTimeout(wantskoffie, 600);
+            }
+                
+            function wantskoffie(){
+                text.setAttribute('value', 'KOFFIE!!!');
+                setTimeout(error, 600);
+            }
+
+            //let newPosition = content_work.getAttribute("position").x;
+                
+                el.addEventListener('click', function () {
+                    el.setAttribute('material', 'color', '#3c2f15');
+                    el.setAttribute('position', '-0.044 1.026 -1.5');
+                    
+                    if(stage< 1){
+                        water.setAttribute('visible', 'true');
+                        text.setAttribute('value', 'koffie!');
+                        stage++;
+                    } else if (stage< 2){
+                        koffie.setAttribute('visible', 'true');
+                        text.setAttribute('value', 'koffie!!');
+                        stage++;
+                    } else if (stage< 3){
+                        text.setAttribute('value', 'KOFFIE!!!');
+                        stage++;
+                    } else if (stage< 4){
+                        text.setAttribute('value', 'KOFFIE!!!');
+                        setTimeout(error, 600);
+                        stage++;
+                    }
+                    //newPosition = content_work.getAttribute("position").x;
+                    //newPosition = newPosition-3.6;
+                    //content_work.setAttribute("animation", "property: position; to: " + newPosition +" 1.6 " + document.getElementById("content_work").getAttribute("position").z + ";  dur:  900; easing: easeInOutSine")
+                });
+                
+                el.addEventListener('mouseenter', function () {
+                    el.setAttribute('material', 'color', '#574523');
+                    el.setAttribute('position', '-0.044 1.026 -1.475');
+                });
+                
+                el.addEventListener('mouseleave', function () {
+                    el.setAttribute('material', 'color', '#82693a');
+                    el.setAttribute('position', '-0.044 1.026 -1.473');
+                });
+            }});
+            
+            
+        </script>
+        
+        <a-scene>
+            <!-- assets worden geladen -->
+            <a-assets>
+                <a-asset-item id="apparaat" src="objecten/koffiezetmachine.glb"></a-asset-item>
+                <a-asset-item id="tafel" src="objecten/mesh_table_a_01.glb"></a-asset-item>
+            </a-assets>
+            
+            <!-- Al het spul -->
+            <a-gltf-model src="#apparaat" scale="0.1 0.1 0.1" position="0 0.94419 -1.59396" gltf-model="objecten/koffiezetmachine.glb" rotation="0 -90 0">
+            </a-gltf-model>
+            <a-gltf-model src="#tafel" scale="3.5 3.5 3.5" position="0 0.00309 -1.59396" gltf-model="objecten/mesh_table_a_01.glb" rotation="">
+            </a-gltf-model>
+            
+            <!-- interactief spul -->
+            
+            <!-- Knop -->
+            <a-cylinder id="knop" knop="" position="-0.044 1.026 -1.473" scale="0.04561 0.0207 0.04561" radius="0.5" height="1.5" color="#FFC65D" material="color: #82693a" geometry="" rotation="90 0 0"></a-cylinder>
+            
+            <!-- Tekst met wat de machine wil-->
+            <a-text id="text" value="Water" position="-0.09745 1.10335 -1.48605" rotation="" scale="0.14479 0.14479 0.14479" text="anchor: left"></a-text>
+            
+            <!-- Water laten zien -->
+            <a-plane id="water" visible="false" position="-0.04276 1.22709 -1.48814" rotation="" scale="0.16459 0.07715 0.99" material="color: #5151db" geometry=""></a-plane>
+            
+            <!-- Koffie laten zien -->
+            <a-plane id="koffie" visible="false" position="0.16855 1.2429 -1.51416" rotation="" scale="0.1 0.1 1" material="color: #6c401e" geometry=""></a-plane>
+            
+            
+            <!-- grondvlak -->
+            <a-plane src="img/light_wood.jpg" material="" geometry="" rotation="-90 0 0" scale="5 5 1" position=""></a-plane>
+            
+            
+            <!-- Camera -->
+        
+            <a-entity camera look-controls position="0 1.428 0" wasd-controls="acceleration:20">
+                <a-entity cursor="fuse: false; rayOrigin: mouse;"></a-entity>
+            </a-entity>
+            
+        </a-scene>
+    </body>
+</html>
